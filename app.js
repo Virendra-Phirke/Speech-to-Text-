@@ -4,11 +4,28 @@ class SpeechToTextApp {
         this.isRecording = false;
         this.transcript = '';
         this.finalTranscript = '';
+        this.permissionGranted = false;
         
         this.initElements();
         this.initSpeechRecognition();
         this.initEventListeners();
         this.createFloatingParticles();
+        this.askMicPermission();
+    }
+
+    async askMicPermission() {
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            try {
+                await navigator.mediaDevices.getUserMedia({ audio: true });
+                this.permissionGranted = true;
+                this.showNotification('Microphone permission granted. You can now use voice input.', 'success');
+            } catch (err) {
+                this.permissionGranted = false;
+                this.showNotification('Microphone permission denied. Please allow microphone access to use speech-to-text.', 'error');
+            }
+        } else {
+            this.showNotification('Microphone access is not supported in this browser.', 'error');
+        }
     }
 
     initElements() {
@@ -24,7 +41,8 @@ class SpeechToTextApp {
 
     initSpeechRecognition() {
         if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-            this.showNotification('Speech recognition not supported in this browser', 'error');
+            this.showNotification('Speech recognition is not supported in this browser. Please use Chrome or Edge for this feature.', 'error');
+            if (this.recordBtn) this.recordBtn.disabled = true;
             return;
         }
 
