@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech-to-Text</title>
+    <link rel="stylesheet" href="style.css">            .{
+               
+</head>
+<body>
+    <div class="container">
+        <div class="floating-particles"></div>
+        
+        <div class="header">
+            <h1 class="title">VoiceScribe</h1>
+            <p class="subtitle">Premium Speech-to-Text Experience</p>
+        </div>
+
+        <div class="record-section">
+            <button class="record-button" id="recordBtn">
+                <span id="recordIcon">🎤</span>
+            </button>
+            <div class="status" id="status">Click to start recording</div>
+        </div>
+
+        <div class="transcript-section">
+            <div class="transcript-label">Live Transcription</div>
+            <div class="transcript-box empty" id="transcriptBox">
+                Your speech will appear here in real-time...
+            </div>
+        </div>
+
+        <div class="actions">
+            <button class="action-btn copy-btn" id="copyBtn">📋 Copy Text</button>
+            <button class="action-btn clear-btn" id="clearBtn">🗑️ Clear</button>
+        </div>
+
+        <div class="wave-animation" id="waveAnimation"></div>
+    </div>
+
+    <div class="notification" id="notification"></div>
+
+    <script src="app.js"></script>
+    
+    </script>
+</body>
+</html>

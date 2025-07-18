@@ -1,0 +1,445 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 40px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+    animation: slideIn 0.8s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Responsive Design Improvements --- */
+@media (max-width: 600px) {
+    body {
+        padding: 8px;
+    }
+    .container {
+        padding: 18px 8px 24px 8px;
+        max-width: 98vw;
+        min-width: unset;
+        border-radius: 14px;
+    }
+    .transcript-box {
+        font-size: 1rem;
+        min-height: 120px;
+        padding: 10px;
+    }
+    .controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .mic-btn, .control-btn {
+        width: 100%;
+        min-height: 48px;
+        font-size: 1.2rem;
+        margin-bottom: 6px;
+    }
+    .mic-btn {
+        font-size: 2rem;
+        padding: 0.7em 0;
+    }
+    .notification {
+        font-size: 0.95rem;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 400px) {
+    .container {
+        padding: 8px 2px 12px 2px;
+        border-radius: 8px;
+    }
+    .transcript-box {
+        font-size: 0.96rem;
+        min-height: 70px;
+        padding: 6px;
+    }
+    .mic-btn, .control-btn {
+        font-size: 1rem;
+        min-height: 40px;
+    }
+}
+
+/* --- Improve Focus and Tap Feedback --- */
+.mic-btn:active, .control-btn:active {
+    transform: scale(0.97);
+    filter: brightness(0.95);
+}
+.mic-btn:focus, .control-btn:focus {
+    outline: 2px solid #764ba2;
+    outline-offset: 2px;
+}
+
+/* --- Accessibility: Higher contrast for buttons --- */
+.mic-btn {
+    background: linear-gradient(135deg, #764ba2 60%, #667eea 100%);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 1em 0;
+    font-size: 2.2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(118, 75, 162, 0.15);
+    transition: background 0.2s, transform 0.1s, filter 0.2s;
+}
+.mic-btn:hover {
+    background: linear-gradient(135deg, #667eea 60%, #764ba2 100%);
+}
+.control-btn {
+    background: #fff;
+    color: #764ba2;
+    border: 1.5px solid #764ba2;
+    border-radius: 8px;
+    padding: 0.7em 0;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, transform 0.1s, filter 0.2s;
+}
+.control-btn:hover {
+    background: #764ba2;
+    color: #fff;
+}
+
+/* --- Transcript box tweaks --- */
+.transcript-box {
+    background: rgba(255,255,255,0.85);
+    border-radius: 12px;
+    min-height: 160px;
+    margin: 20px 0 16px 0;
+    padding: 16px;
+    font-size: 1.1rem;
+    color: #333;
+    box-shadow: 0 2px 10px rgba(118, 75, 162, 0.06);
+    word-break: break-word;
+    overflow-y: auto;
+    transition: background 0.2s;
+}
+.transcript-box:empty::before {
+    content: 'Your transcript will appear here...';
+    color: #aaa;
+    font-style: italic;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: rotate(45deg);
+    animation: shimmer 3s infinite;
+    z-index: -1;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 300;
+}
+
+.record-section {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.record-button {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 15px 30px rgba(238, 90, 36, 0.4);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.record-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(238, 90, 36, 0.6);
+}
+
+.record-button.recording {
+    background: linear-gradient(135deg, #ff4757, #c44569);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.record-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.5s;
+}
+
+.record-button:hover::before {
+    left: 100%;
+}
+
+.status {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+}
+
+.transcript-section {
+    margin-bottom: 30px;
+}
+
+.transcript-label {
+    font-size: 1.2rem;
+    color: white;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.transcript-box {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 24px;
+    min-height: 200px;
+    font-size: 1.1rem;
+    color: white;
+    line-height: 1.6;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow-y: auto;
+    max-height: 300px;
+    transition: all 0.3s ease;
+}
+
+.transcript-box:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.transcript-box.empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    background: linear-gradient(135deg, #5f27cd, #341f97);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 16px rgba(95, 39, 205, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(95, 39, 205, 0.4);
+}
+
+.action-btn:active {
+    transform: translateY(0);
+}
+
+.action-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.action-btn:hover::before {
+    left: 100%;
+}
+
+.copy-btn {
+    background: linear-gradient(135deg, #00d2d3, #54a0ff);
+}
+
+.copy-btn:hover {
+    box-shadow: 0 12px 24px rgba(0, 210, 211, 0.4);
+}
+
+.clear-btn {
+    background: linear-gradient(135deg, #ff9ff3, #f368e0);
+}
+
+.clear-btn:hover {
+    box-shadow: 0 12px 24px rgba(255, 159, 243, 0.4);
+}
+
+.floating-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    animation: float 6s infinite ease-in-out;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #2ed573, #1e90ff);
+    color: white;
+    padding: 16px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    box-shadow: 0 8px 16px rgba(46, 213, 115, 0.3);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+}
+
+.notification.show {
+    transform: translateX(0);
+}
+
+.wave-animation {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+    background-size: 200% 100%;
+    animation: wave 3s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.wave-animation.active {
+    opacity: 1;
+}
+
+@keyframes wave {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 200% 0%; }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 30px 20px;
+        margin: 10px;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    .record-button {
+        width: 100px;
+        height: 100px;
+        font-size: 1.3rem;
+    }
+
+    .actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .action-btn {
+        width: 100%;
+        max-width: 200px;
+    }
+}
